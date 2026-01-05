@@ -1,0 +1,12 @@
+[project]
+name = "apokatastasis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jinja2>=3.1.6",
+    "markdown>=3.10",
+    "python-frontmatter>=1.1.0",
+    "renderer>=1.0.3",
+]

@@ -1,1 +1,12 @@
-*venv*
+journal/public/
+
+# Python-generated files
+journal/__pycache__/
+*.py[oc]
+journal/build/
+journal/dist/
+journal/wheels/
+journal/*.egg-info
+
+# Virtual environments
+journal/.venv

@@ -25,3 +25,11 @@ build infrastructure that complies with those standards.
 When users generate markup (particularly JATSXML) that is _not_ valid, we
 should warn the user. We want to make doing things right as easy as possible
 and make doing things wrong as hard as possible.
+
+## Getting Started
+
+clone this repository
+
+`cd apokatastasis/journal`
+
+`uv run fastapi dev manage.py` <- Better CLI tooling needed

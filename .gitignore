@@ -10,3 +10,6 @@ journal/*.egg-info
 
 # Virtual environments
 journal/.venv
+
+# Logs
+journal/.logs

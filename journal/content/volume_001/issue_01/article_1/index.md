@@ -2,9 +2,19 @@
 title: Creation Myths
 subtitle: On Genesis and the Theogony
 author:
-  surname: Netzer
-  given_name: Aerith
-  name: Aerith Netzer
+    -   orcid: '0000-0000-0000-0000' 
+        surname: 'Netzer'
+        given_name: 'Aerith'
+        name: 'Aerith Netzer' # First Name Last Name
+        email: 'meow@meow.com'
+        affiliation: 
+            organization: 'Northwestern University'
+            department: 'University Libraries'
+            isni: ''
+            ror: '' # info available at https://ror.org/
+            bio: 'is a librarian at Northwestern University, where she specializes in digital publishing, data processing, and playing.'
+                
+    
 date_published:
   month: 01
   day: 01

@@ -6,10 +6,11 @@ author:
         surname: 'Netzer'
         given_name: 'Aerith'
         name: 'Aerith Netzer' # First Name Last Name
-        email: 'meow@meow.com'
+        email: 'example@me.com'
         affiliation: 
             organization: 'Northwestern University'
-            department: 'University Libraries'
+            department: 'Libraries'
+            group: 'Academic Innovation'
             isni: ''
             ror: '' # info available at https://ror.org/
             bio: 'is a librarian at Northwestern University, where she specializes in digital publishing, data processing, and playing.'

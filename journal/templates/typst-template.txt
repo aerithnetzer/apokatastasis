@@ -1,0 +1,18 @@
+#show heading.where(
+level: 1
+): it => block(width: 100% )[
+    #set align(center + horizon)
+    #set text(font: "Baskerville", weight: 500)
+    #it.body
+  ]
+
+#set text(font: "Baskerville", weight: 300)
+#heading(level: 1)[#lorem(3)]
+
+{{ content }}
+
+#lorem(1000)#footnote[
+  #lorem(15)
+]
+#cite(label("christophersClassAssetsWork2021"))
+#bibliography("Rentier Information.bib", style: "{{ site.style }}")

@@ -23,6 +23,7 @@ date_published:
 template: 
   - "article.html"
   - "article-jats.xml"
+  - "typst-template.txt"
 ---
 
 Lorem ipsum dolor amet.

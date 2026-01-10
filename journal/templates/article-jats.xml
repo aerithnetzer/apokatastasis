@@ -20,28 +20,30 @@
         <subtitle>{{ metadata.subtitle }}</subtitle>
       </title-group>
       <contrib-group>
+        {{% for author in authors %}}
         <contrib contrib-type="author">
-          <contrib-id contrib-id-type="orcid">0000-0000-0000-0000</contrib-id>
+          <contrib-id contrib-id-type="orcid">{{ author.orcid }}</contrib-id>
           <name>
-            <surname>Netzer</surname>
+            <surname>{{ author.surname }}</surname>
             <given-names></given-names>
           </name>
-          <email>example@me.com</email>
+          <email>{{ author.email }}</email>
           <aff id="aff-">
-            <institution content-type="group">Academic Innovation</institution>
-            <institution content-type="dept">Libraries</institution>
+            <institution content-type="group">{{ author.affiliation.group }}</institution>
+            <institution content-type="dept">{{ author.affiliation.department }}</institution>
             <institution-wrap>
-              <institution>Northwestern University</institution>
+              <institution>{{ author.affiliation.organization }}</institution>
             </institution-wrap>
           </aff>
         </contrib>
+        {{% endfor %}}
       </contrib-group>
       <permissions>
 </permissions>
     </article-meta>
   </front>
   <body>
-    <p>Lorem ipsum dolor amet.</p>
+    <p>{{ content }}</p>
   </body>
   <back>
 </back>

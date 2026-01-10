@@ -16,3 +16,5 @@ level: 1
 ]
 #cite(label("christophersClassAssetsWork2021"))
 #bibliography("Rentier Information.bib", style: "{{ site.style }}")
+
+edit

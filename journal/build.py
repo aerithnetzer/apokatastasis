@@ -49,6 +49,14 @@ def build_page(src: str, dst: str):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         with open(dst, "w") as f:
             _ = f.write(rendered)
+    if dst.endswith(".typ"):
+        template = env.get_template("typst-template.typ")
+
+        rendered = template.render(content=content, metadata=metadata, site=site_meta)
+
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        with open(dst, "w") as f:
+            _ = f.write(rendered)
     else:
         template = env.get_template("article.html")
 
@@ -72,8 +80,10 @@ def build_site():
                 rel = os.path.relpath(src, CONTENT_DIR)
                 dst_html = os.path.join(OUTPUT_DIR, rel.replace(".md", ".html"))
                 dst_xml = os.path.join(OUTPUT_DIR, rel.replace(".md", ".xml"))
+                dst_typ = os.path.join(OUTPUT_DIR, rel.replace(".md", ".typ"))
                 build_page(src, dst_html)
                 build_page(src, dst_xml)
+                build_page(src, dst_typ)
 
 
 if __name__ == "__main__":

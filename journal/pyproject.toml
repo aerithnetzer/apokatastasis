@@ -11,4 +11,5 @@ dependencies = [
     "markdown>=3.10",
     "python-frontmatter>=1.1.0",
     "renderer>=1.0.3",
+    "uvicorn>=0.40.0",
 ]

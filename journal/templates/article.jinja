@@ -1,8 +1,13 @@
 {% include "./base.jinja" %}
             
 
-<h1>{{ metadata.title }}</h1>
+<h1>{{ metadata.title }}</h1
 {% if metadata.subtitle %}
 : {{ metadata.subtitle }}
+
 {% endif %}
+{% for author in metadata.authors %}
+<p>{{ author.name }}</p>
+{% endfor %}
+
 <p>{{ content }}</p>

@@ -1,7 +1,5 @@
-import logging
 import os
-from typing import NoReturn
-import frontmatter as fm
+import frontmatter as fm # pyright: ignore[stubfile]
 import shutil
 import markdown
 from jinja2 import Environment, FileSystemLoader
@@ -52,9 +50,10 @@ def build_page(src: str, dst: str) -> bool:
 
     metadata = post.metadata
     site_meta = site.metadata
-
     content = post.content
-    template_names: str | list[str] | object = metadata.get("template", "base.jinja")
+
+    for k, v in metadata.items():
+        print(k, v)
 
     if dst.endswith(".xml"):
         try:
@@ -91,7 +90,7 @@ def build_page(src: str, dst: str) -> bool:
     return True
 
 
-def build_site() -> NoReturn:
+def build_site() -> None:
     """
         Iterates over all md files in CONTENT_DIR and returns success
         if no errors.
@@ -125,11 +124,9 @@ def build_site() -> NoReturn:
     if len(failed_files) > 0:
         logger.warning(f"{len(failed_files)} FAILED.")
         logger.info("Exiting with code 1.")
-        return sys.exit(1)
     else:
         logger.success(f"{len(failed_files)} files failed. The path is clear. We will meet on the fields of Armageddon.")
         logger.info("Exiting with code 0.")
-        return sys.exit(0)
 
 
 if __name__ == "__main__":

@@ -43,6 +43,7 @@ dependencies = [
     { name = "markdown" },
     { name = "python-frontmatter" },
     { name = "renderer" },
+    { name = "uvicorn" },
 ]
 
 [package.metadata]
@@ -53,6 +54,7 @@ requires-dist = [
     { name = "markdown", specifier = ">=3.10" },
     { name = "python-frontmatter", specifier = ">=1.1.0" },
     { name = "renderer", specifier = ">=1.0.3" },
+    { name = "uvicorn", specifier = ">=0.40.0" },
 ]
 
 [[package]]

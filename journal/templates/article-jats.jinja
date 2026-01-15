@@ -20,7 +20,7 @@
         <subtitle>{{ metadata.subtitle }}</subtitle>
       </title-group>
       <contrib-group>
-        {{% for author in authors %}}
+        {% for author in authors %}
         <contrib contrib-type="author">
           <contrib-id contrib-id-type="orcid">{{ author.orcid }}</contrib-id>
           <name>
@@ -36,7 +36,7 @@
             </institution-wrap>
           </aff>
         </contrib>
-        {{% endfor %}}
+        {% endfor %}
       </contrib-group>
       <permissions>
 </permissions>

@@ -4,5 +4,7 @@ journal:
   issn: 0000-0000
   publisher:
     name: "Northwestern University Libraries"
-style: "chicago-author-date"
+  style: "chicago-author-date"
+options:
+
 ---

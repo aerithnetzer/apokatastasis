@@ -1,11 +1,21 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+import argparse
 
-app = FastAPI()
+from loguru import logger
+
+from build import build_site
 
 
-@app.get("/", response_class=HTMLResponse)
-def home():
-    with open("./public/index.html", "r") as file:
-        html_content = file.read()
-    return html_content
+def initialize_parsers() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(prog="APOK CLI")
+    subparsers = parser.add_subparsers(title="build", description="Build the site", dest="command", required=True)
+    _ = subparsers.add_parser("build", help="Build help")
+    return parser.parse_args()  # Let argparse handle errors naturally
+
+def main():
+    args = initialize_parsers()
+    if args.command == "build":
+        logger.info(f"Running command: {args.command}")
+        build_site()
+
+if __name__ == "__main__":
+    main()

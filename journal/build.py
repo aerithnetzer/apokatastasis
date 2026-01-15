@@ -1,24 +1,26 @@
 import logging
 import os
+from typing import NoReturn
 import frontmatter as fm
 import shutil
 import markdown
 from jinja2 import Environment, FileSystemLoader
 from loguru import logger
 import sys
+import config
 # Setup global vars
 
 logger.remove()
 
-_ = logger.add(sys.stderr, level="ERROR")
+_ = logger.add(sys.stderr, level="DEBUG")
 
 _ = logger.add("/".join([os.getcwd(), ".logs", "apok.log"]))
 
-CONTENT_DIR = "content"
-TEMPLATE_DIR = "templates"
-OUTPUT_DIR = "public"
-STATIC_DIR = "static"
-JATS_PATH = "apok.yaml"
+CONTENT_DIR = config.CONTENT_DIR
+TEMPLATE_DIR = config.TEMPLATE_DIR
+OUTPUT_DIR = config.OUTPUT_DIR
+STATIC_DIR = config.STATIC_DIR
+SITE_CONFIGURATION_FILE = config.JATS_PATH
 
 
 env = Environment(
@@ -27,30 +29,50 @@ env = Environment(
 md = markdown.Markdown(extensions=["fenced_code", "tables"])
 
 
-def build_page(src: str, dst: str):
+def build_page(src: str, dst: str) -> bool:
+    """
+    Renders a template from the source file provided by `src` and puts the rendered
+    template in `dst`.
+
+    args:
+      - `src`: Path to the markdown file to be rendered.
+      - `dst`: Path to the rendered file.
+
+    returns:
+      - `True` if page is successfully built.
+      - `False` if exception is raised.
+    """
+
     logger.info(f"Building content {src}")
     logger.info(f"Loading frontmatter {src}")
     post = fm.load(src)
 
     logger.debug(f"Type of `post` {type(post)}")
-    site = fm.load(JATS_PATH)
+    site = fm.load(SITE_CONFIGURATION_FILE)
 
     metadata = post.metadata
     site_meta = site.metadata
 
     content = post.content
-    template_names: str | list[str] | object = metadata.get("template", "base.html")
+    template_names: str | list[str] | object = metadata.get("template", "base.jinja")
 
     if dst.endswith(".xml"):
-        template = env.get_template("article-jats.xml")
+        try:
+            template = env.get_template("article-jats.jinja")
 
-        rendered = template.render(content=content, metadata=metadata, site=site_meta)
+            rendered = template.render(content=content, metadata=metadata, site=site_meta)
 
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        with open(dst, "w") as f:
-            _ = f.write(rendered)
-    if dst.endswith(".typ"):
-        template = env.get_template("typst-template.typ")
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            
+            with open(dst, "w") as f:
+                _ = f.write(rendered)
+        except Exception as e:
+            logger.error(e)
+
+            return False
+    
+    elif dst.endswith(".typ"):
+        template = env.get_template("typst-template.jinja")
 
         rendered = template.render(content=content, metadata=metadata, site=site_meta)
 
@@ -58,7 +80,7 @@ def build_page(src: str, dst: str):
         with open(dst, "w") as f:
             _ = f.write(rendered)
     else:
-        template = env.get_template("article.html")
+        template = env.get_template("article.jinja")
 
         rendered = template.render(content=content, metadata=metadata, site=site_meta)
 
@@ -66,8 +88,16 @@ def build_page(src: str, dst: str):
         with open(dst, "w") as f:
             _ = f.write(rendered)
 
+    return True
 
-def build_site():
+
+def build_site() -> NoReturn:
+    """
+        Iterates over all md files in CONTENT_DIR and returns success
+        if no errors.
+    """
+    logger.info(f"Build site as {OUTPUT_DIR}")
+    failed_files: list[str] = []
     if os.path.exists(OUTPUT_DIR):
         shutil.rmtree(OUTPUT_DIR)
 
@@ -81,10 +111,27 @@ def build_site():
                 dst_html = os.path.join(OUTPUT_DIR, rel.replace(".md", ".html"))
                 dst_xml = os.path.join(OUTPUT_DIR, rel.replace(".md", ".xml"))
                 dst_typ = os.path.join(OUTPUT_DIR, rel.replace(".md", ".typ"))
-                build_page(src, dst_html)
-                build_page(src, dst_xml)
-                build_page(src, dst_typ)
+                is_success = build_page(src, dst_html)
+                if not is_success:
+                    failed_files.append(src)
+                is_success = build_page(src, dst_xml)
+                if not is_success:
+                    failed_files.append(src)
+                
+                is_success = build_page(src, dst_typ) # Attempt to build all index.html files
+                if not is_success: # Check if rendered correctly
+                    failed_files.append(src)
+
+    if len(failed_files) > 0:
+        logger.warning(f"{len(failed_files)} FAILED.")
+        logger.info("Exiting with code 1.")
+        return sys.exit(1)
+    else:
+        logger.success(f"{len(failed_files)} files failed. The path is clear. We will meet on the fields of Armageddon.")
+        logger.info("Exiting with code 0.")
+        return sys.exit(0)
 
 
 if __name__ == "__main__":
-    build_site()
+    _ = build_site()
+

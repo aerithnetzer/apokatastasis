@@ -1,7 +1,7 @@
 ---
 title: Creation Myths
 subtitle: On Genesis and the Theogony
-author:
+authors:
     -   orcid: '0000-0000-0000-0000' 
         surname: 'Netzer'
         given_name: 'Aerith'
@@ -14,16 +14,14 @@ author:
             isni: ''
             ror: '' # info available at https://ror.org/
             bio: 'is a librarian at Northwestern University, where she specializes in digital publishing, data processing, and playing.'
-                
-    
 date_published:
   month: 01
   day: 01
   year: 2025
 template: 
-  - "article.html"
-  - "article-jats.xml"
-  - "typst-template.txt"
+  - "article.jinja"
+  - "article-jats.jinja"
+  - "typst-template.jinja"
 ---
 
 Lorem ipsum dolor amet.

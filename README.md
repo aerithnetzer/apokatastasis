@@ -1,6 +1,7 @@
 # apokatastasis
 
-apokatastasis is a static site generator built for the rapid creation and deployment of academic publications.
+apokatastasis is a static site generator built for the rapid creation and
+deployment of academic publications.
 
 All we are doing is serving text files. Let's do that well.
 

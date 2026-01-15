@@ -1,0 +1,8 @@
+{% include "./base.jinja" %}
+            
+
+<h1>{{ metadata.title }}</h1>
+{% if metadata.subtitle %}
+: {{ metadata.subtitle }}
+{% endif %}
+<p>{{ content }}</p>

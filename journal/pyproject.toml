@@ -9,7 +9,9 @@ dependencies = [
     "jinja2>=3.1.6",
     "loguru>=0.7.3",
     "markdown>=3.10",
+    "pypandoc>=1.16.2",
     "python-frontmatter>=1.1.0",
     "renderer>=1.0.3",
     "uvicorn>=0.40.0",
+    "watchdog>=6.0.0",
 ]

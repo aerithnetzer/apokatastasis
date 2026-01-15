@@ -6,6 +6,8 @@ from jinja2 import Environment, FileSystemLoader
 from loguru import logger
 import sys
 import config
+import pypandoc
+
 # Setup global vars
 
 logger.remove()
@@ -53,7 +55,7 @@ def build_page(src: str, dst: str) -> bool:
     metadata = post.metadata
     site_meta = site.metadata
     content = post.content
-
+    html_content: str = pypandoc.convert_text(content, to="html", format="md")
     for k, v in metadata.items():
         print(k, v)
 
@@ -83,7 +85,7 @@ def build_page(src: str, dst: str) -> bool:
     else:
         template = env.get_template("article.jinja")
 
-        rendered = template.render(content=content, metadata=metadata, site=site_meta)
+        rendered = template.render(content=html_content, metadata=metadata, site=site_meta)
 
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         with open(dst, "w") as f:

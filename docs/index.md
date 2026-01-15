@@ -1,5 +1,8 @@
 # apokatastasis
 
+Quick start:
+  uv run uvicorn devserver:app --reload 
+
 Apokatastasis is an experimental static site generator targeting the very
 specific needs of academic publishing.
 
@@ -32,4 +35,3 @@ clone this repository
 
 `cd apokatastasis/journal`
 
-`uv run fastapi dev manage.py` <- Better CLI tooling needed

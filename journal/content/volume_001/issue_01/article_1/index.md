@@ -31,3 +31,7 @@ template:
 ---
 
 Lorem ipsum dolor amet.
+
+I am adding some text and saving now.
+
+> Hello there

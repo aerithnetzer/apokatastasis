@@ -26,6 +26,8 @@ env = Environment(
 )  # Setup environment with TEMPLATE_DIR
 md = markdown.Markdown(extensions=["fenced_code", "tables"])
 
+def get_most_recent_articles(articles):
+    pass
 
 def build_page(src: str, dst: str) -> bool:
     """

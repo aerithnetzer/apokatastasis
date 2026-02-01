@@ -8,7 +8,9 @@
 {% endif %}
 {% for author in metadata.authors %}
 <p>{{ author.name }}</p>
-<a href="https://orcid.org/0009-0004-0847-4849">ORCID</a>
+{% if author.orcid %}
+<a href="https://orcid.org/{{ author.orcid }}">ORCID</a>
+{% endif %}
 {% endfor %}
 
 <p>{{ content }}</p>

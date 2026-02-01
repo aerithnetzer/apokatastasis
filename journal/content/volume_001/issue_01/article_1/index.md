@@ -34,4 +34,4 @@ Lorem ipsum dolor amet.
 
 I am adding some text and saving now.
 
-> Hello there
+> Hello there, this is a block quote.
